@@ -495,8 +495,3 @@ warn_on_root = 1
 #        buildozer --profile demo android debug
 #
 #   Environment variable overrides have priority over profile overrides.
-python_path = /usr/bin/python3
-p4a.source_dir = /home/zhang/MyExpressApp/.buildozer/android/platform/python-for-android
-p4a.local_recipes = /home/zhang/MyExpressApp/.buildozer/android/platform/python-for-android
-p4a.url = file:///home/zhang/MyExpressApp/.buildozer/android/platform/python-for-android
-p4a.allow_missing_libraries = 1
