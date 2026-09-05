@@ -8,34 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: kivy/buildozer:latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Cache buildozer
-        uses: actions/cache@v3
-        with:
-          path: ~/.buildozer
-          key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
-          restore-keys: |
-            ${{ runner.os }}-buildozer-
-
-      - name: Install system dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y openjdk-17-jdk unzip zip zlib1g-dev liblzma-dev libsqlite3-dev \
-            libncursesw5-dev libreadline-dev libgdbm-dev libc6-dev libbz2-dev libgdbm-compat-dev \
-            autoconf automake libtool pkg-config
-
-      - name: Install Python packages
-        run: |
-          pip install --upgrade pip
-          pip install buildozer cython
 
       - name: Build APK
         run: |
