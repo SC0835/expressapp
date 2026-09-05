@@ -16,10 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build APK
-        env:
-          BUILDOZER_ROOT_ACCEPT: yes
-        run: |
-          buildozer -v android debug
+        run: yes | buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
