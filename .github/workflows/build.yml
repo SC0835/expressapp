@@ -1,0 +1,40 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y openjdk-17-jdk unzip zip zlib1g-dev liblzma-dev libsqlite3-dev \
+            libncursesw5-dev libreadline-dev libgdbm-dev libc6-dev libbz2-dev libgdbm-compat-dev \
+            autoconf automake libtool pkg-config
+
+      - name: Install Python packages
+        run: |
+          pip install --upgrade pip
+          pip install buildozer cython
+
+      - name: Build APK
+        run: |
+          buildozer -v android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ExpressApp-APK
+          path: bin/*.apk
